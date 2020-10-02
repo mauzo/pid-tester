@@ -1,0 +1,18 @@
+#!/bin/sh
+
+CURDIR="$(dirname "$0")"
+
+. "$CURDIR/conf/base.sh"
+. "$CURDIR/conf/step.sh"
+. "$CURDIR/conf/test-prog.sh"
+. "$CURDIR/conf/cxx.sh"
+. "$CURDIR/conf/pkgconf.sh"
+. "$CURDIR/conf/gtkmm.sh"
+
+config_start
+
+find_cxx
+find_pkgconf
+find_gtkmm
+
+config_finish
