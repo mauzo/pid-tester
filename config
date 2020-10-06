@@ -11,6 +11,8 @@ CURDIR="$(dirname "$0")"
 
 config_start
 
+CXXFLAGS="-std=c++17"
+
 find_cxx
 find_pkgconf
 find_gtkmm
