@@ -3,11 +3,16 @@
  * The main window.
  */
 
+#include <iostream>
 #include <random>
+
+#include <gtkmm.h>
 
 #include "PIDTester.h"
 
 namespace mauzo::pid {
+
+using std::cerr;
 
 static std::random_device                  _random_device;
 static std::mt19937                        _prng_gen(_random_device());
@@ -24,11 +29,21 @@ PIDTester::PIDTester() {
     init_window();
 }
 
+bool
+PIDTester::add_new_sample() {
+    static int i = 0;
+    std::cerr << "Adding sample #" << i << "\n";
+    graph.add_sample(float(i), prng());
+    i++;
+    return true;
+}
+
 void
 PIDTester::init_samples() {
-    for (int i = 0; i < 100; i++) {
-        graph.add_sample(float(i), prng());
-    }
+    Glib::signal_timeout().connect(
+        sigc::mem_fun(*this, &PIDTester::add_new_sample),
+        500
+    );
 }
 
 void

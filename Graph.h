@@ -20,7 +20,7 @@ class Graph : public Gtk::DrawingArea {
     void    add_sample(time t, sample s);
 
     bool    on_draw(CC ctx);
-    void    set_scale(CC ctx);
+    float   set_scale(CC ctx);
 };
 
 }

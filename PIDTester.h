@@ -14,6 +14,7 @@ class PIDTester : public Gtk::Window {
     PIDTester();
 
   private:
+    bool    add_new_sample();
     void    init_samples();
     void    init_window();
 };
