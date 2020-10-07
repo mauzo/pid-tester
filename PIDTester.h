@@ -11,11 +11,11 @@ class PIDTester : public Gtk::Window {
   public:
     Graph   graph;
 
-    PIDTester() {
-        set_title("PID tester");
-        add(graph);
-        show_all_children();
-    }
+    PIDTester();
+
+  private:
+    void    init_samples();
+    void    init_window();
 };
 
 }

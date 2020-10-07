@@ -11,7 +11,7 @@
 
 PROG=	pid-tester
 
-SRCS=	main.cc
+SRCS=	Graph.cc PIDTester.cc main.cc
 
 OBJS=	${SRCS:R:S/$/.o/}
 
@@ -24,6 +24,9 @@ ${PROG}: ${OBJS}
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c -o ${.TARGET} ${.IMPSRC}
 
 all: .PHONY ${PROG}
+
+test: .PHONY ${PROG}
+	./${PROG}
 
 clean: .PHONY
 	rm -f ${CLEAN}
