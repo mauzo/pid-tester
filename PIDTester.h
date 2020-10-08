@@ -4,18 +4,18 @@
 #include <gtkmm/window.h>
 
 #include "Graph.h"
+#include "SampleSource.h"
 
 namespace mauzo::pid {
 
 class PIDTester : public Gtk::Window {
   public:
-    Graph   graph;
+    Graph           graph;
+    SampleSource    ssource;
 
     PIDTester();
 
   private:
-    bool    add_new_sample();
-    void    init_samples();
     void    init_window();
 };
 

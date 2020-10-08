@@ -11,7 +11,7 @@
 
 PROG=	pid-tester
 
-SRCS=	Graph.cc PIDTester.cc main.cc
+SRCS=	Graph.cc PIDTester.cc SampleSource.cc main.cc
 
 OBJS=	${SRCS:R:S/$/.o/}
 

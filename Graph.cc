@@ -16,7 +16,7 @@ Graph::add_sample(time t, sample s) {
         queue_draw();
 }
 
-bool 
+bool
 Graph::on_draw (CC ctx) {
     if (points.empty())
         return true;
@@ -42,13 +42,13 @@ Graph::set_scale(CC ctx) {
     auto    alloc   = get_allocation();
     int     w       = alloc.get_width();
     int     h       = alloc.get_height();
-    size_t  l       = points.size();
 
     float   s       = float(h) / 256.0;
     ctx->scale(s, s);
 
     float   xw      = float(w) / s;
-    int     xs      = std::max(l, 50u);
+    time    xm      = points.back().first;
+    time    xs      = std::max(xm, 60.0f);
     float   xf      = xw / float(xs);
     return xf;
 }
