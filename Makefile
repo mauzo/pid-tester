@@ -25,6 +25,9 @@ ${PROG}: ${OBJS}
 
 all: .PHONY ${PROG}
 
+depend: .PHONY ${SRCS}
+	${CXX} ${CXXFLAGS} ${INCLUDES} -MM ${.ALLSRC} >${.MAKE.DEPENDFILE}
+
 test: .PHONY ${PROG}
 	./${PROG}
 
