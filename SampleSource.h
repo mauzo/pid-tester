@@ -12,7 +12,7 @@ class SampleSource {
   private:
     Graph           &graph;
     Graph::time     time;
-    float           current_value;
+    Graph::sample   current_value;
 
     static float    prng();
 

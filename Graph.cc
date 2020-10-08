@@ -22,15 +22,16 @@ Graph::on_draw (CC ctx) {
         return true;
 
     float   xfac    = set_scale(ctx);
-
-    ctx->set_source_rgb(0.8, 0.0, 0.0);
     ctx->set_line_width(1.0);
+    ctx->set_source_rgb(0.8, 0.0, 0.0);
 
-    ctx->move_to(points[0].first, points[0].second);
-    for (auto &p: points) {
-        ctx->line_to(p.first * xfac, p.second);
+    for (int i = 0; i < lines(); i++) {
+        ctx->move_to(points[0].first, points[0].second[i]);
+        for (auto &p: points) {
+            ctx->line_to(p.first * xfac, p.second[i]);
+        }
+        ctx->stroke();
     }
-    ctx->stroke();
 
     return true;
 }

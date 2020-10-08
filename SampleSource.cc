@@ -18,7 +18,7 @@ SampleSource::prng() {
 }
 
 SampleSource::SampleSource(Graph &gr) :
-    time(0.0), current_value(128.0), graph(gr)
+    time(0.0), current_value({100.0, 200.0}), graph(gr)
 {
     Glib::signal_timeout().connect(
         sigc::mem_fun(*this, &SampleSource::add_new_sample),
@@ -31,8 +31,10 @@ SampleSource::add_new_sample() {
     //std::cerr << "Adding sample at " << time << "\n";
     graph.add_sample(time, current_value);
 
-    time            += 0.1;
-    current_value   += prng();
+    time    += 0.1;
+
+    for (int i = 0; i < graph.lines(); i++)
+        current_value[i]    += prng();
 
     return true;
 }
