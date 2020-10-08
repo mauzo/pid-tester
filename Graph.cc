@@ -9,6 +9,11 @@
 
 namespace mauzo::pid {
 
+Graph::colours_t Graph::colours = {{
+    {{0.8, 0.0, 0.0}},
+    {{0.0, 0.0, 0.8}},
+}};
+
 void
 Graph::add_sample(time t, sample s) {
     points.push_back({t, s});
@@ -23,11 +28,13 @@ Graph::on_draw (CC ctx) {
 
     float   xfac    = set_scale(ctx);
     ctx->set_line_width(1.0);
-    ctx->set_source_rgb(0.8, 0.0, 0.0);
 
     for (int i = 0; i < lines(); i++) {
-        ctx->move_to(points[0].first, points[0].second[i]);
+        colour  c   = colours[i];
+        ctx->set_source_rgb(c[0], c[1], c[2]);
+
         for (auto &p: points) {
+            /* no need to move_to, cairo will do it for us */
             ctx->line_to(p.first * xfac, p.second[i]);
         }
         ctx->stroke();

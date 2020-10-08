@@ -7,19 +7,26 @@
 
 namespace mauzo::pid {
 
+#define LINES 2
+
 class Graph : public Gtk::DrawingArea {
   public:
     typedef const Cairo::RefPtr<Cairo::Context>     &CC;
-    typedef std::array<float, 2>                    sample;
+    typedef std::array<float, LINES>                sample;
+    typedef std::array<float, 3>                    colour;
     typedef float                                   time;
-    typedef std::vector<std::pair<float, sample>>   points_t;
 
-    points_t    points;
+    typedef std::vector<std::pair<float, sample>>   points_t;
+    typedef std::array<colour, LINES>               colours_t;
+
+    static colours_t    colours;
+
+    points_t            points;
 
     Graph() { }
 
     void    add_sample(time t, sample s);
-    size_t  lines() { return 2; }
+    size_t  lines() { return LINES; }
 
     bool    on_draw(CC ctx);
     float   set_scale(CC ctx);
