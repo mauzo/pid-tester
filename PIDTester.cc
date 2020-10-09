@@ -5,18 +5,23 @@
 
 #include <iostream>
 
-#include <gtkmm.h>
+#include <sigc++/sigc++.h>
 
 #include "PIDTester.h"
 
 namespace mauzo::pid {
 
-using std::cerr;
-
 PIDTester::PIDTester() :
     ssource(graph)
 {
+    init_actions();
     init_window();
+}
+
+void
+PIDTester::init_actions() {
+    add_action("quit", 
+        sigc::mem_fun(*this, &Gtk::Window::close));
 }
 
 void

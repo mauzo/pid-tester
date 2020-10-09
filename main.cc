@@ -11,5 +11,7 @@ main(int argc, char **argv)
     mauzo::pid::PIDTester window;
     window.set_default_size(800, 400);
 
+    app->set_accel_for_action("win.quit", "q");
+
     return app->run(window);
 }

@@ -1,14 +1,14 @@
 #ifndef _mauzo_pid_Window_h
 #define _mauzo_pid_Window_h
 
-#include <gtkmm/window.h>
+#include <gtkmm/applicationwindow.h>
 
 #include "Graph.h"
 #include "SampleSource.h"
 
 namespace mauzo::pid {
 
-class PIDTester : public Gtk::Window {
+class PIDTester : public Gtk::ApplicationWindow {
   public:
     Graph           graph;
     SampleSource    ssource;
@@ -16,6 +16,7 @@ class PIDTester : public Gtk::Window {
     PIDTester();
 
   private:
+    void    init_actions();
     void    init_window();
 };
 
