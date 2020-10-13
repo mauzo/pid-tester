@@ -29,6 +29,7 @@ void
 PIDTester::init_window() {
     set_title("PID tester");
 
+    pwm_slider.set_inverted();
     pwm_slider.set_range(0.0, 255.0);
     pwm_slider.signal_value_changed().connect(
         sigc::mem_fun(*this, &PIDTester::on_pwm_changed));

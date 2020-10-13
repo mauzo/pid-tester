@@ -52,7 +52,9 @@ Graph::set_scale(CC ctx) {
     int     h       = alloc.get_height();
 
     float   s       = float(h) / 256.0;
-    ctx->scale(s, s);
+    /* Translate and flip so we have the origin at the bottom */
+    ctx->translate(0, h);
+    ctx->scale(s, -s);
 
     float   xw      = float(w) / s;
     time    xm      = points.back().first;
