@@ -2,6 +2,7 @@
 #define _SampleSource_h
 
 #include "Graph.h"
+#include "MotorSimulator.h"
 
 namespace mauzo::pid {
 
@@ -11,8 +12,8 @@ class SampleSource {
 
   private:
     Graph           &graph;
+    MotorSimulator  motor;
     Graph::time     time;
-    Graph::sample   current_value;
 
     static float    prng();
 

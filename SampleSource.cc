@@ -18,7 +18,7 @@ SampleSource::prng() {
 }
 
 SampleSource::SampleSource(Graph &gr) :
-    time(0.0), current_value({100.0, 200.0}), graph(gr)
+    time(0.0), graph(gr)
 {
     Glib::signal_timeout().connect(
         sigc::mem_fun(*this, &SampleSource::add_new_sample),
@@ -28,13 +28,20 @@ SampleSource::SampleSource(Graph &gr) :
 
 bool
 SampleSource::add_new_sample() {
-    //std::cerr << "Adding sample at " << time << "\n";
-    graph.add_sample(time, current_value);
+    Graph::sample   s;
 
-    time    += 0.1;
+    s[0]    = float(motor.get_pwm());
+    s[1]    = motor.get_speed() / 100;
+    std::cout << "Sample [" << s[0] << ", " << s[1] << "]\n";
+    graph.add_sample(time, s);
 
-    for (int i = 0; i < graph.lines(); i++)
-        current_value[i]    += prng();
+    float   dt  = 0.1;
+    time    += dt;
+
+    float   pwm = float(int(time / 5.0) * 50);
+
+    motor.set_pwm(pwm);
+    motor.sim_step(dt);
 
     return true;
 }
