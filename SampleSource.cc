@@ -38,9 +38,6 @@ SampleSource::add_new_sample() {
     float   dt  = 0.1;
     time    += dt;
 
-    float   pwm = float(int(time / 5.0) * 50);
-
-    motor.set_pwm(pwm);
     motor.sim_step(dt);
 
     return true;

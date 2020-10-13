@@ -10,6 +10,8 @@ class SampleSource {
   public:
     SampleSource(Graph &gr);
 
+    void    set_pwm(int pwm)    { motor.set_pwm(pwm); }
+
   private:
     Graph           &graph;
     MotorSimulator  motor;

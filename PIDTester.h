@@ -2,6 +2,8 @@
 #define _mauzo_pid_Window_h
 
 #include <gtkmm/applicationwindow.h>
+#include <gtkmm/box.h>
+#include <gtkmm/scale.h>
 
 #include "Graph.h"
 #include "SampleSource.h"
@@ -16,8 +18,13 @@ class PIDTester : public Gtk::ApplicationWindow {
     PIDTester();
 
   private:
+    Gtk::Box        hbox;
+    Gtk::Scale      pwm_slider;
+
     void    init_actions();
     void    init_window();
+
+    void    on_pwm_changed();
 };
 
 }
