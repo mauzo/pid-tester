@@ -31,7 +31,7 @@ SampleSource::add_new_sample() {
     Graph::sample   s;
 
     s[0]    = float(motor.get_pwm());
-    s[1]    = motor.get_speed() / 100;
+    s[1]    = motor.get_speed() / 200;
     std::cout << "Sample [" << s[0] << ", " << s[1] << "]\n";
     graph.add_sample(time, s);
 
