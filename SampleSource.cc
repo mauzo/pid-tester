@@ -32,7 +32,12 @@ SampleSource::add_new_sample() {
 
     s[0]    = float(motor.get_pwm());
     s[1]    = motor.get_speed() / 200;
-    std::cout << "Sample [" << s[0] << ", " << s[1] << "]\n";
+    s[2]    = motor.get_force() * 50;
+    std::cout << "Sample [";
+    for (auto &i: s) {
+        std::cout << i << ", ";
+    }
+    std::cout << "]\n";
     graph.add_sample(time, s);
 
     float   dt  = 0.1;

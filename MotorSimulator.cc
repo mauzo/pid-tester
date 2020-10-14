@@ -11,9 +11,9 @@
 namespace mauzo::pid {
 
 MotorSimulator::MotorSimulator() :
-    pwm(0), speed(0.0),
+    pwm(0), speed(0.0), force(0.0),
     pwm_factor(1.0), txn_ratio(50.0), wheel_r(0.1),
-    friction(5.0), mass(0.5)
+    friction(2.0), stiction(3.0), mass(0.5)
 { }
 
 void
@@ -40,20 +40,28 @@ MotorSimulator::sim_step(float dt) {
 
     /* Force on tyre. */
     float   F_wh    = T_wh / wheel_r;
-    F_wh            = std::min(F_wh, 100.0f);
+    F_wh            = std::min(F_wh, 5.0f);
 
     /* Linear speed of vehicle */
     float   ω_wh    = ω_ar / txn_ratio;
     float   v_ve    = ω_wh * wheel_r;
 
     /* Force on vehicle */
-    float   F_ve    = F_wh - (friction * mass);
+    float   F_ve;
+    if (v_ve < ε) {
+        F_ve        = std::max(0.0f, F_wh - stiction);
+    }
+    else {
+        F_ve        = F_wh - friction;
+    }
+    force           = F_ve;
 
     /* Accel of vehicle */
     float   a_ve    = F_ve / mass;
 
     /* Calculate new speed and convert back */
     v_ve    += a_ve * dt;
+    v_ve    = std::max(v_ve, 0.0f);
     ω_wh    = v_ve / wheel_r;
     ω_ar    = ω_wh * txn_ratio;
 

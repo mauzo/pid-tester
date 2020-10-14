@@ -7,7 +7,7 @@
 
 namespace mauzo::pid {
 
-#define LINES 2
+#define LINES 3
 
 class Graph : public Gtk::DrawingArea {
   public:

@@ -12,6 +12,7 @@ namespace mauzo::pid {
 Graph::colours_t Graph::colours = {{
     {{0.8, 0.0, 0.0}},
     {{0.0, 0.0, 0.8}},
+    {{0.0, 0.8, 0.0}},
 }};
 
 void
@@ -51,15 +52,15 @@ Graph::set_scale(CC ctx) {
     int     w       = alloc.get_width();
     int     h       = alloc.get_height();
 
-    float   s       = float(h) / 256.0;
-    /* Translate and flip so we have the origin at the bottom */
-    ctx->translate(0, h);
+    float   x0      = std::max(0.0f, points.back().first - 60.0f);
+
+    float   s       = float(h) / 400.0;
+    /* Flip so we have Y+ up */
     ctx->scale(s, -s);
 
-    float   xw      = float(w) / s;
-    time    xm      = points.back().first;
-    time    xs      = std::max(xm, 60.0f);
-    float   xf      = xw / float(xs);
+    float   xf      = float(w) / (s * 60.0f);
+    /* Translate the origin to BL */
+    ctx->translate(-(x0 * xf), -256.0);
     return xf;
 }
 
