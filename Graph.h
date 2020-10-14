@@ -29,6 +29,7 @@ class Graph : public Gtk::DrawingArea {
     size_t  lines() { return LINES; }
 
     bool    on_draw(CC ctx);
+    void    draw_graphs(CC ctx, float xfac);
     float   set_scale(CC ctx);
 };
 

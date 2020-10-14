@@ -28,8 +28,13 @@ Graph::on_draw (CC ctx) {
         return true;
 
     float   xfac    = set_scale(ctx);
-    ctx->set_line_width(1.0);
+    draw_graphs(ctx, xfac);
 
+    return true;
+}
+
+void
+Graph::draw_graphs(CC ctx, float xfac) {
     for (int i = 0; i < lines(); i++) {
         colour  c   = colours[i];
         ctx->set_source_rgb(c[0], c[1], c[2]);
@@ -40,8 +45,6 @@ Graph::on_draw (CC ctx) {
         }
         ctx->stroke();
     }
-
-    return true;
 }
 
 /* Returns the X scale factor to use. We can't scale anamorphically
@@ -61,6 +64,13 @@ Graph::set_scale(CC ctx) {
     float   xf      = float(w) / (s * 60.0f);
     /* Translate the origin to BL */
     ctx->translate(-(x0 * xf), -256.0);
+
+    ctx->set_line_width(1.0);
+    ctx->set_source_rgb(0.6, 0.6, 0.6);
+    ctx->move_to(x0 * xf, 0);
+    ctx->line_to((x0 + 60.0f) * xf, 0);
+    ctx->stroke();
+
     return xf;
 }
 
