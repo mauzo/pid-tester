@@ -20,10 +20,33 @@ SampleSource::prng() {
 SampleSource::SampleSource(Graph &gr) :
     time(0.0), graph(gr)
 {
-    Glib::signal_timeout().connect(
+}
+
+void
+SampleSource::start() {
+    timer = Glib::signal_timeout().connect(
         sigc::mem_fun(*this, &SampleSource::add_new_sample),
         20
     );
+}
+
+void
+SampleSource::pause() {
+    if (timer)
+        timer.disconnect();
+}
+
+void
+SampleSource::toggle_pause() {
+    if (timer) {
+        std::cout << "Stopping timer\n";
+        pause();
+    }
+    else {
+        std::cout << "Timer stopped, restarting\n";
+        start();
+    }
+    std::cout << "Timer: " << (bool)timer << "\n";
 }
 
 bool

@@ -17,12 +17,15 @@ PIDTester::PIDTester() :
 {
     init_actions();
     init_window();
+    ssource.start();
 }
 
 void
 PIDTester::init_actions() {
     add_action("quit", 
         sigc::mem_fun(*this, &Gtk::Window::close));
+    add_action("pause",
+        sigc::mem_fun(ssource, &SampleSource::toggle_pause));
 }
 
 void
