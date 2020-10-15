@@ -6,7 +6,7 @@
 
 #include "MotorSimulator.h"
 
-#define ε 0.01f
+#define EPSILON 0.01f
 
 namespace mauzo::pid {
 
@@ -30,10 +30,10 @@ MotorSimulator::sim_step(float dt) {
     float   E       = float(pwm) * pwm_factor;
 
     /* Armature angular speed */
-    float   ω_ar    = speed;
+    float   oh_ar    = speed;
 
     /* Armature torque. */
-    float   T_ar    = E / std::max(ω_ar, ε);
+    float   T_ar    = E / std::max(oh_ar, EPSILON);
 
     /* Wheel torque. */
     float   T_wh    = T_ar * txn_ratio;
@@ -43,12 +43,12 @@ MotorSimulator::sim_step(float dt) {
     F_wh            = std::min(F_wh, 5.0f);
 
     /* Linear speed of vehicle */
-    float   ω_wh    = ω_ar / txn_ratio;
-    float   v_ve    = ω_wh * wheel_r;
+    float   oh_wh   = oh_ar / txn_ratio;
+    float   v_ve    = oh_wh * wheel_r;
 
     /* Force on vehicle */
     float   F_ve;
-    if (v_ve < ε) {
+    if (v_ve < EPSILON) {
         F_ve        = std::max(0.0f, F_wh - stiction);
     }
     else {
@@ -62,10 +62,10 @@ MotorSimulator::sim_step(float dt) {
     /* Calculate new speed and convert back */
     v_ve    += a_ve * dt;
     v_ve    = std::max(v_ve, 0.0f);
-    ω_wh    = v_ve / wheel_r;
-    ω_ar    = ω_wh * txn_ratio;
+    oh_wh   = v_ve / wheel_r;
+    oh_ar   = oh_wh * txn_ratio;
 
-    speed   = ω_ar;
+    speed   = oh_ar;
 }
 
 }
