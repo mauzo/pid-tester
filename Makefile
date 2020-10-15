@@ -6,6 +6,7 @@
 
 .include "obj.mk"
 .include "readconfig.mk"
+.include "jobs.mk"
 
 .MAIN: all
 

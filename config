@@ -5,11 +5,15 @@ CURDIR="$(dirname "$0")"
 . "$CURDIR/conf/base.sh"
 . "$CURDIR/conf/step.sh"
 . "$CURDIR/conf/test-prog.sh"
+. "$CURDIR/conf/bmake.sh"
 . "$CURDIR/conf/cxx.sh"
 . "$CURDIR/conf/pkgconf.sh"
 . "$CURDIR/conf/gtkmm.sh"
 
 config_start
+
+find_bmake
+find_default_jobs
 
 CXXFLAGS="-std=c++17"
 

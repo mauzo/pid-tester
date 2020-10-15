@@ -35,6 +35,8 @@ config_finish () {
     done
 
     echo "_config_mk_included=YES" >>config.mk
+
+    [ -n "$MAKE" ] && echo "Now you need to run '$MAKE'."
 }
 
 log_msg () {
